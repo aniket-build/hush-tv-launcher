@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hush: a tiny, offline, ad-free launcher for older Android TVs (built on a Sony KD-49X7500E: Android TV 9, 32-bit, 2 GB RAM).
+     Deliberately no INTERNET permission: it cannot send anything anywhere. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="io.github.aniketrai.hush"
+    android:versionCode="1"
+    android:versionName="1.0.0">
+
+    <!-- Optional "Usage access" for recent-first sorting. Inert until switched on in
+         Settings > Apps > Special app access > Usage access (or via adb appops). -->
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />
+
+    <uses-feature android:name="android.software.leanback" android:required="false" />
+    <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+
+    <application
+        android:label="@string/app_name"
+        android:icon="@drawable/icon"
+        android:banner="@drawable/banner"
+        android:theme="@style/HomeTheme"
+        android:allowBackup="false"
+        android:supportsRtl="false">
+
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTask"
+            android:stateNotNeeded="true"
+            android:clearTaskOnLaunch="true"
+            android:excludeFromRecents="true"
+            android:resumeWhilePausing="true"
+            android:screenOrientation="landscape"
+            android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize|screenLayout|smallestScreenSize|uiMode|density">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".MoreAppsActivity"
+            android:exported="false"
+            android:excludeFromRecents="true"
+            android:screenOrientation="landscape"
+            android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize|screenLayout|smallestScreenSize|uiMode|density" />
+
+        <!-- Optional "Redirect" helper. Only receives window events from Google's launcher
+             (packageNames filter), never reads screen content, and only does one thing:
+             when Google's home screen opens, it opens Hush instead. -->
+        <!-- Runs in its own process (":redirect") so nothing the home screen draws (e.g. other
+             apps' banner images) shares memory with the part that sees remote button presses. -->
+        <service
+            android:name=".HomeRedirectService"
+            android:process=":redirect"
+            android:label="@string/redirect_label"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/redirect_service" />
+        </service>
+    </application>
+</manifest>

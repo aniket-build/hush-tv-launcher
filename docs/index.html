@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hush Install Guide</title>
+<link rel="icon" href="images/logo-512.png">
+<meta name="description" content="Step-by-step guide to installing Hush, a calm, ad-free home screen for older Android TVs.">
+<style>
+:root{--bg:#f6f7fb;--card:#ffffff;--text:#16181d;--mute:#5b6372;--line:#e3e6ee;--accent:#c27a05;--accent-bg:#fff4df;--code:#0f1420;--code-text:#e8ecf3;--ok:#167a4a;--warn:#a5520b;--warn-bg:#fff1e6}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1117;--card:#161b22;--text:#e9edf2;--mute:#9aa4b2;--line:#2a313c;--accent:#f5a524;--accent-bg:#2a1f08;--code:#0a0e14;--code-text:#e8ecf3;--ok:#3ddc97;--warn:#ffb46b;--warn-bg:#2b1a0b}}
+:root[data-theme="dark"]{--bg:#0d1117;--card:#161b22;--text:#e9edf2;--mute:#9aa4b2;--line:#2a313c;--accent:#f5a524;--accent-bg:#2a1f08;--code:#0a0e14;--code-text:#e8ecf3;--ok:#3ddc97;--warn:#ffb46b;--warn-bg:#2b1a0b}
+*{box-sizing:border-box}
+body{margin:0;overflow-x:hidden;overflow-wrap:break-word;background:var(--bg);color:var(--text);font:17px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+main{max-width:860px;margin:0 auto;padding:40px 16px 80px}
+header.hero{padding:8px 0 24px}
+.kicker{color:var(--accent);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:13px}
+h1{font-size:clamp(30px,5vw,44px);line-height:1.1;margin:8px 0 12px;letter-spacing:-.02em}
+h2{font-size:24px;margin:0 0 6px;letter-spacing:-.01em}
+h3{font-size:18px;margin:22px 0 6px}
+p{margin:8px 0}
+.lead{color:var(--mute);font-size:19px}
+figure{margin:16px 0;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:10px 14px;color:var(--mute);font-size:14px;border-top:1px solid var(--line)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.step{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 22px 18px;margin:20px 0;position:relative}
+.step .num{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:var(--accent);color:#111;font-weight:800;margin-right:10px;flex:none}
+.step-head{display:flex;align-items:center;margin-bottom:6px}
+ol,ul{padding-left:22px;margin:8px 0}
+li{margin:4px 0}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.92em;background:var(--accent-bg);padding:1px 6px;border-radius:6px;overflow-wrap:anywhere}
+pre{background:var(--code);color:var(--code-text);padding:14px 16px;border-radius:12px;overflow-x:auto;font-size:14px;line-height:1.55;margin:10px 0}
+pre code{background:none;padding:0;color:inherit;overflow-wrap:normal}
+.note{background:var(--accent-bg);border-left:4px solid var(--accent);padding:10px 14px;border-radius:8px;margin:12px 0}
+.warn{background:var(--warn-bg);border-left:4px solid var(--warn);padding:10px 14px;border-radius:8px;margin:12px 0}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:15px;table-layout:fixed}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--mute);font-weight:600}
+.toc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin:18px 0}
+.toc a{color:var(--text)}
+a{color:var(--accent)}
+kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:1px 6px;font-size:.9em;background:var(--card)}
+footer{color:var(--mute);font-size:14px;margin-top:40px;border-top:1px solid var(--line);padding-top:16px}
+</style>
+</head>
+<body>
+<main>
+<header class="hero">
+  <img src="images/logo-512.png" width="72" height="72" alt="Hush logo" style="border-radius:16px;display:block;margin-bottom:14px"><div class="kicker">Hush · Install guide</div>
+  <h1>A calm, ad-free home screen for your older Android TV</h1>
+  <p class="lead">About 20 minutes. Nothing is deleted or disabled on your TV, so every step can be undone.</p>
+</header>
+
+<figure>
+  <img src="images/01-home.jpg" alt="Hush home screen with seven recent apps and a More Apps tile over a soft aurora background" width="1280" height="720">
+  <figcaption>What you'll end up with: your 7 most recently played apps, a <b>More Apps</b> tile, the time, and a softly drifting background. No ads, no sponsored rows.</figcaption>
+</figure>
+
+<nav class="toc">
+  <b>Steps</b>
+  <ol>
+    <li><a href="#need">What you need</a></li>
+    <li><a href="#dev">Turn on Developer options</a></li>
+    <li><a href="#adb">Turn on ADB debugging</a></li>
+    <li><a href="#ip">Find your TV's IP address</a></li>
+    <li><a href="#tools">Install ADB on your computer</a></li>
+    <li><a href="#install">Install Hush and make it Home</a></li>
+    <li><a href="#use">Using Hush</a></li>
+    <li><a href="#off">Turn ADB debugging off again</a></li>
+    <li><a href="#undo">How to undo everything</a></li>
+    <li><a href="#trouble">Troubleshooting</a></li>
+  </ol>
+</nav>
+
+<section class="step" id="need">
+  <div class="step-head"><span class="num">1</span><h2>What you need</h2></div>
+  <ul>
+    <li>An <b>Android TV</b> (tested on Sony Bravia KD-49X7500E, Android TV 9; should work on Android TV 7–12).</li>
+    <li>A <b>computer</b> (Mac, Windows or Linux) on the <b>same Wi-Fi</b> as the TV.</li>
+    <li>Your TV <b>remote</b>.</li>
+  </ul>
+  <div class="note">Hush never disables your TV's own home screen. It sits on top, and you can switch back at any time, even with just the remote.</div>
+</section>
+
+<section class="step" id="dev">
+  <div class="step-head"><span class="num">2</span><h2>Turn on Developer options</h2></div>
+  <ol>
+    <li>Press <kbd>Home</kbd>, open <b>Settings</b> (the gear icon), then <b>Device Preferences → About</b>.</li>
+    <li>Scroll down to <b>Build</b>, highlight it and press <kbd>OK</kbd> on the remote <b>7 times</b>, about once a second.</li>
+    <li>A message says <i>"You are now a developer"</i>.</li>
+  </ol>
+  <figure>
+    <img src="images/04-about.jpg" alt="Android TV About screen in Settings" width="1280" height="720" loading="lazy">
+    <figcaption>Settings → Device Preferences → <b>About</b>. "Build" is further down this list.</figcaption>
+  </figure>
+</section>
+
+<section class="step" id="adb">
+  <div class="step-head"><span class="num">3</span><h2>Turn on ADB debugging</h2></div>
+  <ol>
+    <li>Press <kbd>Back</kbd> to <b>Device Preferences</b>. <b>Developer options</b> now appears near the bottom.</li>
+    <li>Open it and switch on <b>ADB debugging</b>. On some TVs it's called <b>USB debugging</b> or <b>Network debugging</b>.</li>
+  </ol>
+  <figure>
+    <img src="images/05-developer-options.jpg" alt="Developer options with ADB debugging switched on, highlighted" width="1280" height="720" loading="lazy">
+    <figcaption>Developer options → <b>ADB debugging: On</b>.</figcaption>
+  </figure>
+  <div class="note">If your computer can't connect later, switch it off and on again, or restart the TV (Settings → Device Preferences → About → <b>Restart</b>).</div>
+</section>
+
+<section class="step" id="ip">
+  <div class="step-head"><span class="num">4</span><h2>Find your TV's IP address</h2></div>
+  <p>Go to <b>Settings → Network &amp; Internet</b> (or <b>About → Status</b>) and note the <b>IP address</b>, for example <code>192.168.1.50</code>.</p>
+  <div class="note">Routers can hand your TV a new address later. If a command can't find the TV next time, check this again.</div>
+</section>
+
+<section class="step" id="tools">
+  <div class="step-head"><span class="num">5</span><h2>Install ADB on your computer</h2></div>
+  <p>ADB is Google's free tool for talking to Android devices.</p>
+  <table>
+    <tr><th>Mac</th><td><code>brew install --cask android-platform-tools</code></td></tr>
+    <tr><th>Windows</th><td><code>winget install Google.PlatformTools</code></td></tr>
+    <tr><th>Linux</th><td><code>sudo apt install adb</code> (or your distro's equivalent)</td></tr>
+    <tr><th>Any</th><td>Download "SDK Platform-Tools" from <a href="https://developer.android.com/tools/releases/platform-tools">developer.android.com</a> and unzip it</td></tr>
+  </table>
+</section>
+
+<section class="step" id="install">
+  <div class="step-head"><span class="num">6</span><h2>Install Hush and make it your Home screen</h2></div>
+  <p>Download <code>hush.apk</code> from the project's <a href="https://github.com/aniketrai/hush-tv-launcher/releases">Releases page</a>, along with the repository (green <b>Code</b> button → <b>Download ZIP</b>) for the helper scripts.</p>
+
+  <h3>Mac or Linux: one command</h3>
+<pre><code>cd hush-tv-launcher
+scripts/enable-as-home.sh 192.168.1.50 ~/Downloads/hush.apk</code></pre>
+
+  <h3>Windows, or doing it by hand</h3>
+<pre><code>adb connect 192.168.1.50:5555
+adb install -r hush.apk
+adb shell cmd appops set io.github.aniketrai.hush GET_USAGE_STATS allow
+adb shell settings put secure enabled_accessibility_services io.github.aniketrai.hush/io.github.aniketrai.hush.HomeRedirectService
+adb shell settings put secure accessibility_enabled 1</code></pre>
+  <div class="warn"><b>Already using another accessibility service</b> (screen reader, remote-mapper)? The by-hand command above replaces that list. Use the script instead, which adds Hush to it, or add Hush by hand in Settings → Accessibility.</div>
+  <div class="note"><b>Check it's genuine.</b> Only download <code>hush.apk</code> from the project's Releases page. The script shows the file's SHA-256 and asks you to compare it with the one in the Release notes before installing. At the end it offers to switch ADB debugging off for you; say yes. See <a href="https://github.com/aniketrai/hush-tv-launcher/blob/main/SECURITY.md">SECURITY.md</a> for exactly what Hush can and can't do.</div>
+  <p>The first time, your TV asks <b>"Allow USB debugging?"</b>. Tick <b>Always allow from this computer</b> and choose <b>OK</b>.</p>
+  <p>Now press <kbd>Home</kbd> on your remote. Hush appears. 🎉</p>
+</section>
+
+<section class="step" id="use">
+  <div class="step-head"><span class="num">7</span><h2>Using Hush</h2></div>
+  <div class="grid2">
+    <figure>
+      <img src="images/02-more-tile.jpg" alt="The More Apps tile highlighted with an amber outline" width="1280" height="720" loading="lazy">
+      <figcaption><b>Recently played</b> fills itself as you watch. The 8th tile opens <b>More Apps</b>.</figcaption>
+    </figure>
+    <figure>
+      <img src="images/03-more-apps.jpg" alt="More Apps screen listing remaining apps alphabetically" width="1280" height="720" loading="lazy">
+      <figcaption><b>More Apps</b>: everything else, A–Z. Open one and it moves into Recently played.</figcaption>
+    </figure>
+  </div>
+  <table>
+    <tr><th>To…</th><th>Do this</th></tr>
+    <tr><td>Open Settings</td><td>Press <kbd>Up</kbd> to <b>⚙ Settings</b> (top right)</td></tr>
+    <tr><td>Hide an app</td><td>Long-press <kbd>OK</kbd> on it → <b>Hide from home</b></td></tr>
+    <tr><td>Bring hidden apps back / turn background motion off</td><td>Long-press <kbd>OK</kbd> on <b>⚙ Settings</b></td></tr>
+    <tr><td>Get the TV's original home screen</td><td>Press <kbd>Home</kbd> <b>twice quickly</b> (Hush stands aside for 10 minutes)</td></tr>
+  </table>
+  <div class="grid2">
+    <figure><img src="images/06-aurora-a.jpg" alt="Aurora background, first frame" width="1280" height="720" loading="lazy"><figcaption>The aurora background…</figcaption></figure>
+    <figure><img src="images/07-aurora-b.jpg" alt="Aurora background twenty seconds later" width="1280" height="720" loading="lazy"><figcaption>…20 seconds later. Its colours follow the time of day.</figcaption></figure>
+  </div>
+</section>
+
+<section class="step" id="off">
+  <div class="step-head"><span class="num">8</span><h2>Turn ADB debugging off again</h2></div>
+  <p>Settings → Device Preferences → Developer options → <b>ADB debugging: Off</b>. Hush keeps working; this just closes the door your computer used.</p>
+</section>
+
+<section class="step" id="undo">
+  <div class="step-head"><span class="num">9</span><h2>How to undo everything</h2></div>
+  <table>
+    <tr><th>Where</th><th>How</th></tr>
+    <tr><td>Remote only</td><td>Press <kbd>Home</kbd> twice → ⚙ Settings → Device Preferences → <b>Accessibility → Hush → Off</b></td></tr>
+    <tr><td>Remove it</td><td>Settings → Apps → <b>Hush → Uninstall</b>. Home goes straight back to your TV's launcher.</td></tr>
+    <tr><td>From the computer</td><td><code>scripts/disable-home.sh 192.168.1.50 --uninstall</code></td></tr>
+  </table>
+</section>
+
+<section class="step" id="trouble">
+  <div class="step-head"><span class="num">10</span><h2>Troubleshooting</h2></div>
+  <h3>"Connection refused" or "failed to connect"</h3>
+  <p>ADB debugging isn't listening yet. Switch it off and on, or restart the TV. Check the IP address hasn't changed.</p>
+  <h3>Home still opens the old home screen</h3>
+  <ul>
+    <li>Check Settings → Accessibility → <b>Hush</b> is <b>On</b>.</li>
+    <li>You may have pressed Home twice (the 10-minute stand-aside). Wait, or restart the TV.</li>
+    <li>Some Google TV devices handle Home differently. Please open an issue with your TV model.</li>
+  </ul>
+  <h3>The app list looks wrong</h3>
+  <p>Recently played learns as you use apps. To include apps opened from remote buttons, allow <b>Usage access</b> (the install command does this; or Settings → Apps → Special app access → Usage access → Hush).</p>
+  <div class="warn"><b>Please don't</b> disable or uninstall your TV's own launcher, and never open factory/engineering menus. Hush is designed so you never need to.</div>
+</section>
+
+<footer>
+  Hush is open source (MIT) · <a href="https://github.com/aniketrai/hush-tv-launcher">github.com/aniketrai/hush-tv-launcher</a> · Built with Claude Code · App logos in screenshots belong to their respective owners.
+</footer>
+</main>
+</body>
+</html>

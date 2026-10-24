@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Hush</string>
+    <string name="redirect_label">Hush – Home button</string>
+    <string name="redirect_description">Makes the Home button open Hush instead of the Google home screen. It needs to see remote button presses to catch Home; it ignores every other button and never stores or sends anything (Hush has no internet access). It also watches only for the Google home screen opening, and cannot read anything on screen. Press Home twice quickly for the Google home screen. Turn this off to go back to the Google home screen permanently.</string>
+</resources>
