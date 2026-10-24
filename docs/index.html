@@ -112,7 +112,8 @@ footer{color:var(--mute);font-size:14px;margin-top:40px;border-top:1px solid var
 
 <section class="step" id="ip">
   <div class="step-head"><span class="num">4</span><h2>Find your TV's IP address</h2></div>
-  <p>Go to <b>Settings → Network &amp; Internet</b> (or <b>About → Status</b>) and note the <b>IP address</b>, for example <code>192.168.1.50</code>.</p>
+  <p>Go to <b>Settings → Network &amp; Internet</b> (or <b>About → Status</b>) and note the <b>IP address</b> (four numbers separated by dots). In the commands below, replace <code>YOUR-TV-IP</code> with it.</p>
+  <div class="note">This address only works inside your own home Wi-Fi. Nobody on the internet can reach it, and you never need to share it.</div>
   <div class="note">Routers can hand your TV a new address later. If a command can't find the TV next time, check this again.</div>
 </section>
 
@@ -129,20 +130,20 @@ footer{color:var(--mute);font-size:14px;margin-top:40px;border-top:1px solid var
 
 <section class="step" id="install">
   <div class="step-head"><span class="num">6</span><h2>Install Hush and make it your Home screen</h2></div>
-  <p>Download <code>hush.apk</code> from the project's <a href="https://github.com/aniketrai/hush-tv-launcher/releases">Releases page</a>, along with the repository (green <b>Code</b> button → <b>Download ZIP</b>) for the helper scripts.</p>
+  <p>Download <code>hush.apk</code> from the project's <a href="https://github.com/aniket-build/hush-tv-launcher/releases">Releases page</a>, along with the repository (green <b>Code</b> button → <b>Download ZIP</b>) for the helper scripts.</p>
 
   <h3>Mac or Linux: one command</h3>
-<pre><code>cd hush-tv-launcher
-scripts/enable-as-home.sh 192.168.1.50 ~/Downloads/hush.apk</code></pre>
+<pre><code>cd ~/Downloads/hush-tv-launcher-main
+bash scripts/enable-as-home.sh YOUR-TV-IP ~/Downloads/hush.apk</code></pre>
 
   <h3>Windows, or doing it by hand</h3>
-<pre><code>adb connect 192.168.1.50:5555
+<pre><code>adb connect YOUR-TV-IP:5555
 adb install -r hush.apk
 adb shell cmd appops set io.github.aniketrai.hush GET_USAGE_STATS allow
 adb shell settings put secure enabled_accessibility_services io.github.aniketrai.hush/io.github.aniketrai.hush.HomeRedirectService
 adb shell settings put secure accessibility_enabled 1</code></pre>
   <div class="warn"><b>Already using another accessibility service</b> (screen reader, remote-mapper)? The by-hand command above replaces that list. Use the script instead, which adds Hush to it, or add Hush by hand in Settings → Accessibility.</div>
-  <div class="note"><b>Check it's genuine.</b> Only download <code>hush.apk</code> from the project's Releases page. The script shows the file's SHA-256 and asks you to compare it with the one in the Release notes before installing. At the end it offers to switch ADB debugging off for you; say yes. See <a href="https://github.com/aniketrai/hush-tv-launcher/blob/main/SECURITY.md">SECURITY.md</a> for exactly what Hush can and can't do.</div>
+  <div class="note"><b>Check it's genuine.</b> Only download <code>hush.apk</code> from the project's Releases page. The script shows the file's SHA-256 and asks you to compare it with the one in the Release notes before installing. At the end it offers to switch ADB debugging off for you; say yes. See <a href="https://github.com/aniket-build/hush-tv-launcher/blob/main/SECURITY.md">SECURITY.md</a> for exactly what Hush can and can't do.</div>
   <p>The first time, your TV asks <b>"Allow USB debugging?"</b>. Tick <b>Always allow from this computer</b> and choose <b>OK</b>.</p>
   <p>Now press <kbd>Home</kbd> on your remote. Hush appears. 🎉</p>
 </section>
@@ -183,7 +184,7 @@ adb shell settings put secure accessibility_enabled 1</code></pre>
     <tr><th>Where</th><th>How</th></tr>
     <tr><td>Remote only</td><td>Press <kbd>Home</kbd> twice → ⚙ Settings → Device Preferences → <b>Accessibility → Hush → Off</b></td></tr>
     <tr><td>Remove it</td><td>Settings → Apps → <b>Hush → Uninstall</b>. Home goes straight back to your TV's launcher.</td></tr>
-    <tr><td>From the computer</td><td><code>scripts/disable-home.sh 192.168.1.50 --uninstall</code></td></tr>
+    <tr><td>From the computer</td><td><code>bash scripts/disable-home.sh YOUR-TV-IP --uninstall</code></td></tr>
   </table>
 </section>
 
@@ -203,7 +204,7 @@ adb shell settings put secure accessibility_enabled 1</code></pre>
 </section>
 
 <footer>
-  Hush is open source (MIT) · <a href="https://github.com/aniketrai/hush-tv-launcher">github.com/aniketrai/hush-tv-launcher</a> · Built with Claude Code · App logos in screenshots belong to their respective owners.
+  Hush is open source (MIT) · <a href="https://github.com/aniket-build/hush-tv-launcher">github.com/aniket-build/hush-tv-launcher</a> · Built with Claude Code · App logos in screenshots belong to their respective owners.
 </footer>
 </main>
 </body>
